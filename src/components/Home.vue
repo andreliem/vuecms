@@ -1,0 +1,34 @@
+<template>
+    <div class="block">
+        <div class="container text-center">
+            <h1>Welcome to the Vue CMS</h1>
+            <h5>the Static File CMS for Vuejs </h5>
+            <p class="lead mt-5">
+                Vue CMS allows developers to manage their own blog or website as a static site using Vuejs
+                and their favourite IDE.
+            </p>
+            <p>...more documetation to follow</p>
+            <p>-- <a href="https://twitter.com/andreliem">@andreliem</a></p>
+        </div>
+    </div>
+</template>
+
+<script type="text/babel">
+
+    export default {
+        components: {
+        },
+        data() {
+            return {
+            }
+        },
+        created() {
+        }
+    }
+</script>
+
+<style lang="less" rel="stylesheet/less" scoped>
+    .block {
+        padding: 4em;
+    }
+</style>
