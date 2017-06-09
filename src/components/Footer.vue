@@ -10,10 +10,10 @@
                 </div>
                 <div class="col-sm-3 mb-4">
                     <ul class="list-unstyled list-spaced">
-                        <li><h6 class="text-uppercase">Recent Articles</h6></li>
-                        <li><a href="/articles" v-on:click.prevent="navArticles()">Archives</a></li>
-                        <li v-for="article in articles">
-                            <a v-on:click.stop.prevent="navArticle(article)" v-bind:href="`/articles/${article.id}`">{{article.titleShort}}</a>
+                        <li><h6 class="text-uppercase">Recent Posts</h6></li>
+                        <li><a href="/posts" v-on:click.prevent="navPosts()">Archives</a></li>
+                        <li v-for="post in posts">
+                            <a v-on:click.stop.prevent="navPost(post)" v-bind:href="`/posts/${post.id}`">{{post.titleShort}}</a>
                         </li>
                     </ul>
                 </div>
@@ -22,23 +22,15 @@
     </div>
 </template>
 <script type="text/babel">
-    import * as Articles from '@/api/articles'
+    import * as Posts from '@/api/posts'
+    import Navigation from '@/mixins/navigation'
 
     export default {
+        mixins: [ Navigation ],
         data() {
             return {
-                articles: Articles.fetch()
+                posts: Posts.fetch()
             }
-        },
-        methods: {
-            navArticle(article) {
-                this.$router.push({ name: 'Article', params: { id: article.id}})
-            },
-            navArticles() {
-                this.$router.push({ name: 'Articles'})
-            }
-        },
-        created() {
         }
     }
 </script>

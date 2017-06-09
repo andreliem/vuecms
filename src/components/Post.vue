@@ -3,7 +3,7 @@
         <div class="block block-post">
             <div class="container">
                 <div class="row">
-                    <post class="col-sm-9" :article="article" :content="content"></post>
+                    <post class="col-sm-9" :post="post" :content="content"></post>
                 </div>
             </div>
         </div>
@@ -11,7 +11,7 @@
             <div class="container">
                 <hr/>
                 <div class="col-sm-8">
-                    <disqus v-bind:shortname="shortname" :identifier="articleId"></disqus>
+                    <disqus v-bind:shortname="shortname" :identifier="postId"></disqus>
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
 <script type="text/babel">
     import Post from './renderers/Post.vue'
     import Disqus from 'vue-disqus/VueDisqus.vue'
-    import * as Articles from '@/api/articles'
+    import * as Posts from '@/api/posts'
 
     export default {
         components: {
@@ -31,18 +31,18 @@
         data() {
             return {
                 content: '',
-                article: '',
+                post: '',
                 shortname: "YOUR_DISQUS_NAME",
-                articleId: this.$route.params.id,
+                postId: this.$route.params.id.toString(),
                 isActive: false
             }
         },
         created() {
-            let template = require(`../api/articles/${this.articleId}.html`)
+            let template = require(`../api/posts/${this.postId}.html`)
             this.content = template
 
-            this.article = Articles.fetch().find((article) => {
-                return (article.id == this.articleId)
+            this.post = Posts.fetch().find((post) => {
+                return (post.id == this.postId)
             })
         }
     }

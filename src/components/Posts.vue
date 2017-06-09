@@ -1,17 +1,17 @@
 <template>
     <div>
-        <div class="block block-articles">
+        <div class="block block-posts">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h1>Past Articles</h1>
+                        <h1>Past Posts</h1>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-8">
                         <ul>
-                            <li v-for="article in articles">
-                                <a v-bind:href="`/article/${article.id}`" v-on:click.prevent="navArticle(article)">{{ article.title }}</a>
+                            <li v-for="post in posts">
+                                <a v-bind:href="`/post/${post.id}`" v-on:click.prevent="navPost(post)">{{ post.title }}</a>
                             </li>
                         </ul>
                     </div>
@@ -22,21 +22,16 @@
 </template>
 
 <script type="text/babel">
-    import * as Articles from '@/api/articles'
-    import Post from './renderers/Post.vue'
+    import * as Posts from '@/api/posts'
+    import Post from '@/components/renderers/Post.vue'
+    import Navigation from '@/mixins/navigation'
     import Disqus from 'vue-disqus/VueDisqus.vue'
 
     export default {
-        components: {
-        },
+        mixins:[ Navigation ],
         data() {
             return {
-                articles: Articles.fetch()
-            }
-        },
-        methods: {
-            navArticle(article) {
-                this.$router.push({ name: 'Article', params: { id: article.id}})
+                posts: Posts.fetch()
             }
         }
     }

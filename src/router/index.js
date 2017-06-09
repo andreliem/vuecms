@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/components/Home'
-import Article from '@/components/Article'
-import Articles from '@/components/Articles'
+import Post from '@/components/Post'
+import Posts from '@/components/Posts'
 
 Vue.use(Router)
 
@@ -19,14 +19,14 @@ export default new Router({
             component: Home
         },
         {
-            path: '/articles/:id',
-            name: 'Article',
-            component: Article
+            path: '/posts/:id',
+            name: 'Post',
+            component: Post
         },
         {
-            path: '/articles',
-            name: 'Articles',
-            component: Articles
+            path: '/posts',
+            name: 'Posts',
+            component: Posts
         }
     ]
 })

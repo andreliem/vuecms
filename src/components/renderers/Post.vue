@@ -1,8 +1,8 @@
 <template>
     <div>
-        <h3 class="title">{{ article.title }}</h3>
+        <h3 class="title">{{ post.title }}</h3>
 
-        <h6 class="mb-2">published by <a v-bind:href="article.author.url" target="_blank">{{article.author.name}}</a> on {{ article.date }}
+        <h6 class="mb-2">published by <a v-bind:href="post.author.url" target="_blank">{{post.author.name}}</a> on {{ post.date }}
             <div class="float-right">
                 <span v-html="keywords"></span>
             </div>
@@ -13,13 +13,14 @@
 </template>
 <script type="text/babel">
     export default {
-        props: ['content','article'],
+        props: ['content','post'],
         computed: {
             keywords() {
-                return (this.article.keywords) ? 'categories: ' + this.article.keywords.join(', ') : ''
+                return (this.post.keywords) ? 'categories: ' + this.post.keywords.join(', ') : ''
             }
         },
         created() {
+            //window.PR.prettyPrint()
         }
     }
 </script>

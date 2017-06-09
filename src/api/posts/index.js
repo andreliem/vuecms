@@ -7,6 +7,7 @@ export function fetch() {
         {
             id: 1,
             title: 'My First Post',
+            slug: 'my-first-post',
             titleShort: 'First Post',
             date: '2017-05-26 13:00:00',
             author: author,
@@ -18,6 +19,7 @@ export function fetch() {
         {
             id: 2,
             title: 'The Second post',
+            slug: 'my-second-post',
             titleShort: 'Second Post',
             date: '2017-05-27 13:00:00',
             author: author,
