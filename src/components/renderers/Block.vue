@@ -1,5 +1,5 @@
 <template>
-    <div class="page" v-html="content"></div>
+    <div class="block" v-html="content"></div>
 </template>
 <script type="text/babel">
     export default {

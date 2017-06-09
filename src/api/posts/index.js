@@ -1,7 +1,5 @@
-const author = {
-    name: 'Andre Liem',
-    url: 'https://twitter.com/andreliem'
-}
+import * as Authors from '@/api/authors'
+
 export function fetch() {
     return [
         {
@@ -10,7 +8,7 @@ export function fetch() {
             slug: 'my-first-post',
             titleShort: 'First Post',
             date: '2017-05-26 13:00:00',
-            author: author,
+            author: Authors.fetch().shift(),
             keywords: [
                 'tutorial',
                 'beginner'
@@ -22,7 +20,7 @@ export function fetch() {
             slug: 'my-second-post',
             titleShort: 'Second Post',
             date: '2017-05-27 13:00:00',
-            author: author,
+            author: Authors.fetch().shift(),
             keywords: [
                 'advanced',
             ]

@@ -1,28 +1,21 @@
 <template>
-    <div class="block">
-        <div class="container text-center">
-            <h1>Welcome to the Vue CMS</h1>
-            <h5>the Static File CMS for Vuejs </h5>
-            <p class="lead mt-5">
-                Vue CMS allows developers to manage their own blog or website as a static site using Vuejs
-                and their favourite IDE.
-            </p>
-            <p>...more documetation to follow</p>
-            <p>-- <a href="https://twitter.com/andreliem">@andreliem</a></p>
-        </div>
-    </div>
+    <block :content="content"></block>
 </template>
 
 <script type="text/babel">
+    import Block from './renderers/Block.vue'
 
     export default {
         components: {
+            Block
         },
         data() {
             return {
+                content: ''
             }
         },
         created() {
+            this.content = require(`../api/blocks/1.html`)
         }
     }
 </script>

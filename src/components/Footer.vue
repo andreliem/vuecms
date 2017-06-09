@@ -5,7 +5,8 @@
                 <div class="col-sm-2 mb-4">
                     <ul class="list-unstyled list-spaced">
                         <li><h6 class="text-uppercase">Site</h6></li>
-                        <li><a href="#">Home</a></li>
+                        <li><router-link to="/">Home</router-link></li>
+                        <li><router-link to="/sample">Sample</router-link></li>
                     </ul>
                 </div>
                 <div class="col-sm-3 mb-4">

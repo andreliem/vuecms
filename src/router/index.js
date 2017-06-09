@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/components/Home'
+import Block from '@/components/renderers/Block'
 import Post from '@/components/Post'
 import Posts from '@/components/Posts'
 
@@ -16,7 +17,16 @@ export default new Router({
         {
             path: '/',
             name: 'Home',
-            component: Home
+            component: Block,
+            props: { content: require(`../api/blocks/1.html`) }
+
+        },
+        {
+            path: '/sample',
+            name: 'Sample',
+            component: Block,
+            props: { content: require(`../api/blocks/2.html`) }
+
         },
         {
             path: '/posts/:id',
