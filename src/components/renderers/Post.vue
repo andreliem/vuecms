@@ -8,19 +8,41 @@
             </div>
         </h6>
 
-        <div class="content" v-html="content"></div>
+        <div class="content" v-html="contentParsed"></div>
     </div>
 </template>
 <script type="text/babel">
+    const util = {
+        escapeHtml(element) {
+            return element.text(element.html()).html()
+        }
+    }
+
     export default {
         props: ['content','post'],
         computed: {
             keywords() {
                 return (this.post.keywords) ? 'categories: ' + this.post.keywords.join(', ') : ''
+            },
+            contentParsed() {
+                let $content = $(this.content)
+                let preContent = $content.find('pre.lang-html')
+
+                preContent.each((index, element) => {
+                    element = $(element)
+                    element.replaceWith(`<pre class='prettyprint lang-html'>${util.escapeHtml(element)}</pre>`)
+                })
+
+                return $content.html()
             }
         },
-        created() {
-            //window.PR.prettyPrint()
+        watch: {
+            'content' (curr, old) {
+                setTimeout(() => {
+                    window.PR.prettyPrint()
+                }, 500)
+
+            }
         }
     }
 </script>

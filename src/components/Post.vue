@@ -3,7 +3,7 @@
         <div class="block block-post">
             <div class="container">
                 <div class="row">
-                    <post class="col-sm-9" :post="post" :content="content"></post>
+                    <post-renderer class="col-sm-9" :post="post" :content="content"></post-renderer>
                 </div>
             </div>
         </div>
@@ -19,31 +19,39 @@
 </template>
 
 <script type="text/babel">
-    import Post from './renderers/Post.vue'
+    import PostRenderer from './renderers/Post.vue'
     import Disqus from 'vue-disqus/VueDisqus.vue'
     import * as Posts from '@/api/posts'
 
     export default {
         components: {
-            Post,
+            PostRenderer,
             Disqus
+        },
+        computed: {
+            content() {
+                let id = this.$route.params.id.toString()
+                let content = require(`../api/posts/${id}.html`)
+                return content
+            },
+            routeId() {
+                return this.$route.params.id.toString()
+            },
+            post() {
+                let id = this.$route.params.id.toString()
+                return Posts.fetch().find((post) => {
+                    return (post.id == id)
+                })
+            }
         },
         data() {
             return {
-                content: '',
-                post: '',
                 shortname: "YOUR_DISQUS_NAME",
-                postId: this.$route.params.id.toString(),
                 isActive: false
             }
         },
-        created() {
-            let template = require(`../api/posts/${this.postId}.html`)
-            this.content = template
-
-            this.post = Posts.fetch().find((post) => {
-                return (post.id == this.postId)
-            })
+        mounted() {
+            window.PR.prettyPrint()
         }
     }
 </script>
