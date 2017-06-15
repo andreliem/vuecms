@@ -3,7 +3,7 @@
         <div class="block block-post">
             <div class="container">
                 <div class="row">
-                    <post-renderer class="col-sm-9" :post="post" :content="content"></post-renderer>
+                    <post-renderer class="col-sm-12" :post="post" :content="content"></post-renderer>
                 </div>
             </div>
         </div>
@@ -11,7 +11,7 @@
             <div class="container">
                 <hr/>
                 <div class="col-sm-8">
-                    <disqus v-bind:shortname="shortname" :identifier="postId"></disqus>
+                    <disqus ref="disqus" v-bind:shortname="shortname" :identifier="disqusId"></disqus>
                 </div>
             </div>
         </div>
@@ -34,8 +34,8 @@
                 let content = require(`../api/posts/${id}.html`)
                 return content
             },
-            routeId() {
-                return this.$route.params.id.toString()
+            disqusId() { // env used to avoid re-use from dev to production
+                return `${process.env.NODE_ENV}-${this.$route.params.id.toString()}`
             },
             post() {
                 let id = this.$route.params.id.toString()
@@ -46,16 +46,24 @@
         },
         data() {
             return {
-                shortname: "YOUR_DISQUS_NAME",
+                shortname: "DISQUS_ID",
                 isActive: false
             }
         },
         mounted() {
             window.PR.prettyPrint()
+        },
+        watch: {
+            '$route.params.id' (curr, old) {
+                // disqus does not properly reload just based off the
+                // disqusId computed property - we need to manually change it
+                // when we know it should update
+                this.$refs.disqus.init()
+            }
         }
     }
 </script>
-<style lang="scss" rel="stylesheet/scss scoped">
+<style lang="less" type="text/less" scoped>
 
     .block-post {
         padding-top: 0;

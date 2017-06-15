@@ -1,4 +1,4 @@
-# Vue Blog 
+# Vue Static CMS 
 @andreliem <twitter.com/andreliem>
 
 > A Static CMS platform for developers to blog using Vue and their favourite IDE 
@@ -19,4 +19,8 @@ npm run build
 npm run build --report
 
 ```
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
 

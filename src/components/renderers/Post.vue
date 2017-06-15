@@ -46,7 +46,7 @@
         }
     }
 </script>
-<style lang="scss" rel="stylesheet/scss">
+<style lang="less" type="text/less">
     .content {
         .icon-check {
             color: green;
