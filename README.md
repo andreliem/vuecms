@@ -1,27 +1,33 @@
 # Vue Static CMS 
-by author [andreliem](https://twitter.com/andreliem) 
+created by [andreliem](https://twitter.com/andreliem) 
 
 Static Markdown blogging using VueJS + Nuxt. 
 
 Use this setup to create a simple blogging system for your personal website.
 
 The goal of this repository is to provide developers with a static blogging platform that is compatible with
-the latest releases of Nuxt. This was created initially to support to launch of [vuejsradar.com](http://vuejsradar.com).
+the latest releases of Nuxt. 
+
+## Examples
+- [vuejsradar.com](http://vuejsradar.com)
+- [andreliem.ca](http://andreliem.ca)
 
 
 ## Supported Features
 - Markdown blogging
-- Locally stored files `/content/posts`
+- Locally stored posts `/content/posts`
 - Example configuration in `nuxt.config.js` for loading common modules and route generation
-- Two layouts (default and slug blog posts) 
+- Two layouts (default home page and blog posts using slug urls) 
 - Integration of disqus
-- LessCss (easy to swap to SASS if you prefer)
+- Less css (easy to swap to SASS if you prefer)
 
 ## Roadmap
 - Site Map (SEO) 
 - Syntax highlighting of code
 - Time to read posts
 - Social Media Sharing
+- Swap in Axios API provider for markdown  
+- Runnable Code snippets
 
 ## Installation 
 
@@ -29,7 +35,7 @@ the latest releases of Nuxt. This was created initially to support to launch of 
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve locally with hot reload 
 npm run dev
 
 # build /dist for production 
