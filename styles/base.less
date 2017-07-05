@@ -1,0 +1,94 @@
+// Colour palette
+@default-color: #333;
+@red: #ee2b31;
+@grey: #707070;
+@grey-light: #8b8b8b;
+@blue: #1abccf;
+@green: #46cfa9;
+
+html
+{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Lato", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fcfcfc;
+}
+
+*, *:before, *:after
+{
+  box-sizing: border-box;
+  margin: 0;
+}
+
+a {
+  color: @green;
+  &:hover {
+    color: @blue;
+    text-decoration: none;
+  }
+}
+
+.site-title {
+  font-weight: 600;
+  font-size: 4em;
+  a {
+    color: @default-color;
+  }
+}
+
+.site-subtitle {
+  color: @grey-light;
+  font-weight: 300;
+  font-size: 2em;
+}
+
+.me {
+  width: 25%;
+  border-radius: 500px;
+  border: 5px solid #ddd;
+  @media (min-width: 992px) {
+    width: 10%;
+  }
+}
+
+.social {
+  list-style: none;
+  color: @blue;
+  font-size: 2em;
+
+  .item {
+    margin: 0 0.5em 0 0.5em;
+  }
+}
+
+.page-enter-active, .page-leave-active {
+  transition: opacity .2s
+}
+.page-enter, .page-leave-active {
+  opacity: 0
+}
+
+.bounce-enter-active {
+  animation: bounce-in .8s;
+}
+.bounce-leave-active {
+  animation: bounce-out .5s;
+}
+@keyframes bounce-in {
+  0% { transform: scale(0) }
+  50% { transform: scale(1.5) }
+  100% { transform: scale(1) }
+}
+@keyframes bounce-out {
+  0% { transform: scale(1) }
+  50% { transform: scale(1.5) }
+  100% { transform: scale(0) }
+}
