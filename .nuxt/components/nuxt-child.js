@@ -3,16 +3,20 @@ import Vue from 'vue'
 const transitionsKeys = [
   'name',
   'mode',
+  'appear',
   'css',
   'type',
   'duration',
   'enterClass',
   'leaveClass',
+  'appearClass',
   'enterActiveClass',
   'enterActiveClass',
   'leaveActiveClass',
+  'appearActiveClass',
   'enterToClass',
-  'leaveToClass'
+  'leaveToClass',
+  'appearToClass'
 ]
 const listenersKeys = [
   'beforeEnter',
@@ -22,7 +26,11 @@ const listenersKeys = [
   'beforeLeave',
   'leave',
   'afterLeave',
-  'leaveCancelled'
+  'leaveCancelled',
+  'beforeAppear',
+  'appear',
+  'afterAppear',
+  'appearCancelled'
 ]
 
 export default {
@@ -30,7 +38,7 @@ export default {
   functional: true,
   render (h, { parent, data }) {
     data.nuxtChild = true
-
+    const _parent = parent
     const transitions = parent.$nuxt.nuxt.transitions
     const defaultTransition = parent.$nuxt.nuxt.defaultTransition
     let depth = 0
@@ -51,7 +59,7 @@ export default {
     let listeners = {}
     listenersKeys.forEach((key) => {
       if (typeof transition[key] === 'function') {
-        listeners[key] = transition[key]
+        listeners[key] = transition[key].bind(_parent)
       }
     })
     return h('transition', {

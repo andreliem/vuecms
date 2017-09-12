@@ -1,12 +1,28 @@
-'use strict'
 import Vue from 'vue'
 
 const noopData = () => ({})
 
-export function applyAsyncData (Component, asyncData = {}) {
+// window.onNuxtReady(() => console.log('Ready')) hook
+// Useful for jsdom testing or plugins (https://github.com/tmpvar/jsdom#dealing-with-asynchronous-script-loading)
+if (process.browser) {
+  window._nuxtReadyCbs = []
+  window.onNuxtReady = function (cb) {
+    window._nuxtReadyCbs.push(cb)
+  }
+}
+
+export function applyAsyncData (Component, asyncData) {
   const ComponentData = Component.options.data || noopData
+  // Prevent calling this method for each request on SSR context
+  if (!asyncData && Component.options.hasAsyncData) {
+    return
+  }
+  Component.options.hasAsyncData = true
   Component.options.data = function () {
     const data =  ComponentData.call(this)
+    if (this.$ssrContext) {
+      asyncData = this.$ssrContext.asyncData[Component.cid]
+    }
     return { ...data, ...asyncData }
   }
   if (Component._Ctor && Component._Ctor.options) {
@@ -57,15 +73,16 @@ export function getContext (context, app) {
   let ctx = {
     isServer: !!context.isServer,
     isClient: !!context.isClient,
+    isStatic: process.static,
     isDev: true,
+    isHMR: context.isHMR || false,
     app: app,
     store: context.store,
     route: (context.to ? context.to : context.route),
     payload: context.payload,
     error: context.error,
     base: '/',
-    env: {},
-    hotReload: context.hotReload || false
+    env: {}
   }
   const next = context.next
   ctx.params = ctx.route.params || {}
@@ -87,6 +104,13 @@ export function getContext (context, app) {
   }
   if (context.req) ctx.req = context.req
   if (context.res) ctx.res = context.res
+  if (context.from) ctx.from = context.from
+  if (ctx.isServer && context.beforeRenderFns) {
+    ctx.beforeNuxtRender = (fn) => context.beforeRenderFns.push(fn)
+  }
+  if (ctx.isClient && window.__NUXT__) {
+    ctx.nuxtState = window.__NUXT__
+  }
   return ctx
 }
 
@@ -123,8 +147,11 @@ export function promisify (fn, context) {
 }
 
 // Imported from vue-router
-export function getLocation (base) {
+export function getLocation (base, mode) {
   var path = window.location.pathname
+  if (mode === 'hash') {
+    return window.location.hash.replace(/^#\//, '')
+  }
   if (base && path.indexOf(base) === 0) {
     path = path.slice(base.length)
   }
